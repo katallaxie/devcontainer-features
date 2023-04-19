@@ -50,3 +50,8 @@ check_packages ca-certificates curl unzip
 
 curl -sSL "https://github.com/bufbuild/buf/releases/download/v${VERSION}/buf-$(uname -s)-$(uname -m)" -o "${BIN}/buf"
 chmod +x "${BIN}/buf"
+
+# Clean up
+rm -rf /var/lib/apt/lists/*
+
+echo "Done!"
