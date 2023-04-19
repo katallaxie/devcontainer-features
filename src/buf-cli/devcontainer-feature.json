@@ -1,0 +1,13 @@
+{
+    "name": "Buf CLI",
+    "id": "buf-cli",
+    "version": "1.0.0",
+    "description": "But CLI is a tool for working with Protocol Buffers",
+    "options": {
+      "version": {
+        "type": "string",
+        "default": "",
+        "description": "Choose your version"
+      }
+    }
+  }
