@@ -15,7 +15,9 @@ The [Buf CLI](https://buf.build/) is a tool for working with Protocol Buffers.
 
 | Options Id | Description | Type | Default Value |
 |-----|-----|-----|-----|
-| `version` | The version of the `buf` CLI to install. | `string` | `-` |
+| version | Choose your version | string | - |
+
+
 
 ---
 
