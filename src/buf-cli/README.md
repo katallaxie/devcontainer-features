@@ -7,9 +7,7 @@ The [Buf CLI](https://buf.build/) is a tool for working with Protocol Buffers.
 
 ```json
 "features": {
-    "ghcr.io/katallaxie/devcontainer-features/buf-cli:1": {
-        "version": "latest"
-    }
+    "ghcr.io/katallaxie/devcontainer-features/buf-cli:1": {}
 }
 ```
 
@@ -17,7 +15,7 @@ The [Buf CLI](https://buf.build/) is a tool for working with Protocol Buffers.
 
 | Options Id | Description | Type | Default Value |
 |-----|-----|-----|-----|
-| `version` | The version of the `buf` CLI to install. | `string` | `latest` |
+| `version` | The version of the `buf` CLI to install. | `string` | `` |
 
 ---
 
