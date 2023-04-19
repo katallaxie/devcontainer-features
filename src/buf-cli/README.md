@@ -1,7 +1,7 @@
 
 # Buf CLI (buf-cli)
 
-The [Buf CLI](https://buf.build/) is a tool for working with Protocol Buffers.
+Buf CLI is a tool for working with Protocol Buffers
 
 ## Example Usage
 
