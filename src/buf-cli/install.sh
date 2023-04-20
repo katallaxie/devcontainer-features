@@ -48,8 +48,15 @@ export DEBIAN_FRONTEND=noninteractive
 # Install dependencies
 check_packages ca-certificates curl unzip
 
+# Install buf
 curl -sSL "https://github.com/bufbuild/buf/releases/download/v${VERSION}/buf-$(uname -s)-$(uname -m)" -o "${BIN}/buf"
 chmod +x "${BIN}/buf"
+
+# Install plugins
+for plugin in protoc-gen-buf-breaking protoc-gen-buf-lint; do
+    curl -sSL "https://github.com/bufbuild/buf/releases/download/v${VERSION}/${plugin}-$(uname -s)-$(uname -m)" -o "${BIN}/$plugin"
+    chmod +x "${BIN}/$plugin"
+done
 
 # Clean up
 rm -rf /var/lib/apt/lists/*
