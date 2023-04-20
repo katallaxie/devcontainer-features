@@ -1,7 +1,7 @@
 {
     "name": "Buf CLI",
     "id": "buf-cli",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Buf CLI is a tool for working with Protocol Buffers",
     "options": {
       "version": {
