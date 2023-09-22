@@ -5,6 +5,9 @@ This repository is based on the
 
 ## Contents
 
+### [`dart`](src/dart/README.md)
+Install the `dart` language. Dart is a client-optimized language for fast apps on any platform.
+
 ### [`buf-cli`](src/buf-cli/README.md)
 
 Install the `buf` CLI tool. The [Buf CLI](https://buf.build/) is a tool for working with Protocol Buffers.
