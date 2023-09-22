@@ -51,7 +51,7 @@ check_packages ca-certificates curl unzip apt-transport-https wget gpg
 
 # Install dart
 wget -qO- https://dl-ssl.google.com/linux/linux_signing_key.pub | gpg --dearmor -o /usr/share/keyrings/dart.gpg
-echo 'deb [signed-by=/usr/share/keyrings/dart.gpg arch=arm64] https://storage.googleapis.com/download.dartlang.org/linux/debian jammy main' | tee /etc/apt/sources.list.d/dart_stable.list
+echo "deb [signed-by=/usr/share/keyrings/dart.gpg arch=$architecture] https://storage.googleapis.com/download.dartlang.org/linux/debian stable main" | tee /etc/apt/sources.list.d/dart_stable.list
 apt_get_update
 apt-get install dart
 
