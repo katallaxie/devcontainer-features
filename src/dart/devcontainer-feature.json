@@ -9,5 +9,9 @@
         "default": "",
         "description": "Choose your version"
       }
+    },
+    "containerEnv": {
+      "DART_SDK": "/usr/lib/dart",
+      "PATH": "/usr/lib/dart/bin:$PATH"
     }
   }

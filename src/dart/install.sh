@@ -4,7 +4,7 @@ set -e
 echo "Activating feature 'dart'"
 
 # Default version
-VERSION=${VERSION:-1.17.0}
+VERSION=${VERSION:-3.1.2}
 
 # Defailt install path
 BIN=${BIN:-/usr/local/bin}
@@ -47,13 +47,33 @@ check_packages()
 export DEBIAN_FRONTEND=noninteractive
 
 # Install dependencies
-check_packages ca-certificates curl unzip apt-transport-https wget gpg
+check_packages ca-certificates curl unzip
+
+export DART_SDK=/usr/lib/dart
+export PATH=$DART_SDK/bin:/root/.pub-cache/bin:$PATH
 
 # Install dart
-wget -qO- https://dl-ssl.google.com/linux/linux_signing_key.pub | gpg --dearmor -o /usr/share/keyrings/dart.gpg
-echo 'deb [signed-by=/usr/share/keyrings/dart.gpg arch=arm64] https://storage.googleapis.com/download.dartlang.org/linux/debian jammy main' | tee /etc/apt/sources.list.d/dart_stable.list
-apt_get_update
-apt-get install dart
+set -eux; \
+    case "$(dpkg --print-architecture)" in \
+        amd64) \
+            DART_SHA256=be679ccef3a0b28f19e296dd5b6374ac60dd0deb06d4d663da9905190489d48b; \
+            SDK_ARCH="x64";; \
+        armhf) \
+            DART_SHA256=0be45ee5992be715cf57970f8b37f5be26d3be30202c420ce1606e10147223f0; \
+            SDK_ARCH="arm";; \
+        arm64) \
+            DART_SHA256=395180693ccc758e4e830d3b13c4879e6e96b6869763a56e91721bf9d4228250; \
+            SDK_ARCH="arm64";; \
+    esac; \
+    SDK="dartsdk-linux-${SDK_ARCH}-release.zip"; \
+    BASEURL="https://storage.googleapis.com/dart-archive/channels"; \
+    URL="$BASEURL/stable/release/$VERSION/sdk/$SDK"; \
+    echo "SDK: $URL" >> dart_setup.log ; \
+    curl -fLO "$URL"; \
+    echo "$DART_SHA256 *$SDK" \
+        | sha256sum --check --status --strict -; \
+    unzip "$SDK" && mv dart-sdk "$DART_SDK" && rm "$SDK" \
+        && chmod 755 "$DART_SDK" && chmod 755 "$DART_SDK/bin";
 
 # Clean up
 rm -rf /var/lib/apt/lists/*
