@@ -10,6 +10,13 @@
         "description": "Choose your version"
       }
     },
+    "customizations": {
+      "extensions": [
+        "GitHub.copilot",
+        "dart-code.dart-code",
+        "dart-code.flutter"
+      ]
+    },
     "containerEnv": {
       "DART_SDK": "/usr/lib/dart",
       "PATH": "/usr/lib/dart/bin:$PATH"
