@@ -21,4 +21,4 @@ TinyGo is a Go compiler for small places. Microcontrollers, WebAssembly, and com
 
 ---
 
-_Note: This file was auto-generated from the [devcontainer-feature.json](https://github.com/katallaxie/devcontainer-features/blob/main/src/dart/devcontainer-feature.json).  Add additional notes to a `NOTES.md`._
+_Note: This file was auto-generated from the [devcontainer-feature.json](https://github.com/katallaxie/devcontainer-features/blob/main/src/tinygo/devcontainer-feature.json).  Add additional notes to a `NOTES.md`._
