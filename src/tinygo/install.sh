@@ -50,7 +50,7 @@ export DEBIAN_FRONTEND=noninteractive
 check_packages ca-certificates curl unzip
 
 set -eux; \
-    ARCHITECTURE="arm64"; \
+    ARCHITECTURE="$(dpkg --print-architecture)"; \
     URL="https://github.com/tinygo-org/tinygo/releases/download/v${VERSION}/tinygo_${VERSION}_${ARCHITECTURE}.deb"; \
     curl -fLO "$URL"
     dpkg -i "tinygo_${VERSION}_${ARCHITECTURE}.deb"
