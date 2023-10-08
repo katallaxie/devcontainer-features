@@ -1,7 +1,7 @@
 {
     "name": "TinyGo",
     "id": "tinygo",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "TinyGo is a Go compiler for small places. Microcontrollers, WebAssembly, and command-line tools. Based on LLVM.",
     "options": {
         "version": {
