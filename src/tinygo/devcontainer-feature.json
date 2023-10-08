@@ -1,0 +1,23 @@
+{
+    "name": "TinyGo",
+    "id": "tinygo",
+    "version": "1.0.0",
+    "description": "TinyGo is a Go compiler for small places. Microcontrollers, WebAssembly, and command-line tools. Based on LLVM.",
+    "options": {
+        "version": {
+            "type": "string",
+            "default": "",
+            "description": "Choose your version"
+        }
+    },
+    "customizations": {
+        "features": {
+            "ghcr.io/devcontainers/features/go:2": {}
+        },
+        "extensions": [
+            "tinygo.vscode-tinygo",
+            "golang.go"
+        ]
+    },
+    "containerEnv": {}
+}
