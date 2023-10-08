@@ -19,5 +19,7 @@
             "golang.go"
         ]
     },
-    "containerEnv": {}
+    "containerEnv": {
+        "TINYGOROOT": "/usr/local/tinygo"
+    }
 }
