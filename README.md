@@ -15,3 +15,7 @@ Install the `buf` CLI tool. The [Buf CLI](https://buf.build/) is a tool for work
 ### [`tinygo`](src/tinygo/README.md)
 
 Install the `tinygo` CLI tool. [TinyGo](https://tinygo.org/) is a Go compiler for small places.
+
+### [`air`](src/air/README.md)
+
+Install the `air` CLI for live-reloading Go applications.
