@@ -19,3 +19,7 @@ Install the `tinygo` CLI tool. [TinyGo](https://tinygo.org/) is a Go compiler fo
 ### [`air`](src/air/README.md)
 
 Install the `air` CLI for live-reloading Go applications.
+
+### [`k9s`](src/k9s/README.md)
+
+Install the `k9s` Kubernetes CLI to manage your clusters in style.
