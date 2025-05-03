@@ -26,4 +26,4 @@ Install the `k9s` Kubernetes CLI to manage your clusters in style.
 
 ### [`zed`](src/zed/README.md)
 
-Install `zed` the official command line interface to manage SpiceDB.
+Install `zed` the official command line interface to manage [SpiceDB](https://github.com/authzed/spicedb).
