@@ -23,3 +23,7 @@ Install the `air` CLI for live-reloading Go applications.
 ### [`k9s`](src/k9s/README.md)
 
 Install the `k9s` Kubernetes CLI to manage your clusters in style.
+
+### [`zed`](src/zed/README.md)
+
+Install the `zed` is the official command line interface to manage SpiceDB.
