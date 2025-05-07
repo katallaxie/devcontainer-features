@@ -13,8 +13,14 @@ jobs:
     strategy:
       matrix:
         features:
+          - air
           - buf-cli
           - dart
+          - k9s
+          - mage
+          - mage
+          - tinygo
+          - zed
         baseImage:
           - debian:latest
           - ubuntu:latest

@@ -1,0 +1,16 @@
+{
+    "name": "mage",
+    "id": "mage",
+    "version": "1.0.0",
+    "description": "a Make/rake-like dev tool using Go",
+    "options": {
+        "version": {
+            "type": "string",
+            "default": "latest",
+            "description": "Select or enter mage version"
+        }
+    },
+    "installsAfter": [
+      "ghcr.io/devcontainers/features/common-utils"
+    ]
+  }
