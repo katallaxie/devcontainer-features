@@ -4,7 +4,7 @@ set -e
 echo "Activating feature 'buf-cli'"
 
 # Default version
-VERSION=${VERSION:-1.17.0}
+VERSION=${VERSION:-"latest"}
 
 # Defailt install path
 BIN=${BIN:-/usr/local/bin}
@@ -46,7 +46,11 @@ check_packages() {
 export DEBIAN_FRONTEND=noninteractive
 
 # Install dependencies
-check_packages ca-certificates curl unzip
+check_packages ca-certificates curl unzip jq
+
+VERSION=$(curl -sL https://api.github.com/repos/bufbuild/buf/releases/latest \
+  | jq -r '.tag_name')
+VERSION="${VERSION#"v"}"
 
 # Install buf
 curl -sSL "https://github.com/bufbuild/buf/releases/download/v${VERSION}/buf-$(uname -s)-$(uname -m)" -o "${BIN}/buf"
