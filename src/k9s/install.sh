@@ -83,40 +83,6 @@ get_architecture() {
 
 export DEBIAN_FRONTEND=noninteractive
 
-# Figure out correct version of a three part version number is not passed
-find_version_from_git_tags() {
-    local variable_name=$1
-    local requested_version=${!variable_name}
-    if [ "${requested_version}" = "none" ]; then return; fi
-    local repository=$2
-    local prefix=${3:-"tags/v"}
-    local separator=${4:-"."}
-    local last_part_optional=${5:-"false"}
-    if [ "$(echo "${requested_version}" | grep -o "." | wc -l)" != "2" ]; then
-        local escaped_separator=${separator//./\\.}
-        local last_part
-        if [ "${last_part_optional}" = "true" ]; then
-            last_part="(${escaped_separator}[0-9]+)?"
-        else
-            last_part="${escaped_separator}[0-9]+"
-        fi
-        local regex="${prefix}\\K[0-9]+${escaped_separator}[0-9]+${last_part}$"
-        local version_list="$(git ls-remote --tags ${repository} | grep -oP "${regex}" | tr -d ' ' | tr "${separator}" "." | sort -rV)"
-        if [ "${requested_version}" = "latest" ] || [ "${requested_version}" = "current" ] || [ "${requested_version}" = "lts" ]; then
-            declare -g ${variable_name}="$(echo "${version_list}" | head -n 1)"
-        else
-            set +e
-            declare -g ${variable_name}="$(echo "${version_list}" | grep -E -m 1 "^${requested_version//./\\.}([\\.\\s]|$)")"
-            set -e
-        fi
-    fi
-    if [ -z "${!variable_name}" ] || ! echo "${version_list}" | grep "^${!variable_name//./\\.}$" > /dev/null 2>&1; then
-        echo -e "Invalid ${variable_name} value: ${requested_version}\nValid values:\n${version_list}" >&2
-        exit 1
-    fi
-    echo "${variable_name}=${!variable_name}"
-}
-
 # Install dependencies
 check_packages curl git tar
 
@@ -127,12 +93,14 @@ chmod 700 ${TMP_DIR}
 
 # Install k9s
 echo "(*) Installing k9s..."
-find_version_from_git_tags K9S_VERSION https://github.com/derailed/k9s
-K9S_VERSION="${K9S_VERSION#"v"}"
 
-architecture=$(get_architecture "$K9S_VERSION")
+VERSION=$(curl -sL https://api.github.com/repos/derailed/k9s/releases/latest \
+  | jq -r '.tag_name')
+VERSION="${VERSION#"v"}"
 
-curl -sSL -o ${TMP_DIR}/k9s.tar.gz "https://github.com/derailed/k9s/releases/download/v${K9S_VERSION}/k9s_Linux_${architecture}.tar.gz"
+ARCHITECTURE=$(get_architecture "$VERSION")
+
+curl -sSL -o ${TMP_DIR}/k9s.tar.gz "https://github.com/derailed/k9s/releases/download/v${VERSION}/k9s_Linux_${ARCHITECTURE}.tar.gz"
 tar -xzf "${TMP_DIR}/k9s.tar.gz" -C "${TMP_DIR}" k9s
 mv ${TMP_DIR}/k9s /usr/local/bin/k9s
 chmod 0755 /usr/local/bin/k9s
