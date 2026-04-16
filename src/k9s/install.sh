@@ -9,8 +9,16 @@ rm -rf /var/lib/apt/lists/*
 
 K9S_VERSION=${VERSION:-"latest"}
 
+echo "Step 1, check if user is root"
 if [ "$(id -u)" -ne 0 ]; then
     echo -e 'Script must be run as root. Use sudo, su, or add "USER root" to your Dockerfile before running this script.'
+    exit 1
+fi
+
+echo "Step 2, check if architecture is supported"
+ARCHITECTURE="$(uname -m | sed s/aarch64/arm64/ | sed s/x86_64/amd64/)"
+if [ "${ARCHITECTURE}" != "amd64" ] && [ "${ARCHITECTURE}" != "x86_64" ] && [ "${ARCHITECTURE}" != "arm64" ] && [ "${ARCHITECTURE}" != "aarch64" ]; then
+    echo "(!) Architecture $ARCHITECTURE unsupported"
     exit 1
 fi
 
@@ -30,57 +38,6 @@ check_packages() {
     fi
 }
 
-# from https://stackoverflow.com/questions/4023830/how-to-compare-two-strings-in-dot-separated-version-format-in-bash
-function vercomp() {
-  if [[ "$1" == "$2" ]]; then
-    return 0
-  fi
-  local IFS=.
-  # shellcheck disable=SC2206
-  local i ver1=($1) ver2=($2)
-  # fill empty fields in ver1 with zeros
-  for ((i = ${#ver1[@]}; i < ${#ver2[@]}; i++)); do
-    ver1[i]=0
-  done
-  for ((i = 0; i < ${#ver1[@]}; i++)); do
-    if [[ -z ${ver2[i]} ]]; then
-      # fill empty fields in ver2 with zeros
-      ver2[i]=0
-    fi
-    if ((10#${ver1[i]} > 10#${ver2[i]})); then
-      return 1
-    fi
-    if ((10#${ver1[i]} < 10#${ver2[i]})); then
-      return 2
-    fi
-  done
-  return 0
-}
-
-get_architecture() {
-    local version="$1"
-    local architecture_
-    architecture="$(uname -m)"
-    case $architecture in
-        x86_64) architecture_="amd64";;
-        aarch64 | armv8* | arm64) architecture_="arm64";;
-        *) echo "(!) Architecture $architecture unsupported"; exit 1 ;;
-    esac
-
-    # x86_64 before 0.27.0
-    vercomp "$version" "0.27.0"
-    case $? in
-    0) op='=' ;;
-    1) op='>' ;;
-    2) op='<' ;;
-    esac
-    if [[ "$op" == '<' && "$architecture" == 'x86_64' ]]; then
-        architecture_="x86_64"
-    fi
-
-    echo "${architecture_}"
-}
-
 export DEBIAN_FRONTEND=noninteractive
 
 # Install dependencies
@@ -97,8 +54,6 @@ echo "(*) Installing k9s..."
 VERSION=$(curl -sL https://api.github.com/repos/derailed/k9s/releases/latest \
   | jq -r '.tag_name')
 VERSION="${VERSION#"v"}"
-
-ARCHITECTURE=$(get_architecture "$VERSION")
 
 curl -sSL -o ${TMP_DIR}/k9s.tar.gz "https://github.com/derailed/k9s/releases/download/v${VERSION}/k9s_Linux_${ARCHITECTURE}.tar.gz"
 tar -xzf "${TMP_DIR}/k9s.tar.gz" -C "${TMP_DIR}" k9s
