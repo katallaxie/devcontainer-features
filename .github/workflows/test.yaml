@@ -19,7 +19,6 @@ jobs:
           - k9s
           - mage
           - tinygo
-          - zed
         baseImage:
           - debian:latest
           - ubuntu:latest

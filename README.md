@@ -24,10 +24,6 @@ Install the `air` CLI for live-reloading Go applications.
 
 Install the `k9s` Kubernetes CLI to manage your clusters in style.
 
-### [`zed`](src/zed/README.md)
-
-Install `zed` the official command line interface to manage [SpiceDB](https://github.com/authzed/spicedb).
-
 ### [`mage`](src/mage/README.md)
 
 Install the `mage` build tool. Mage is a make-like build tool for Go.
