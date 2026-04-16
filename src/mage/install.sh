@@ -26,7 +26,7 @@ if [ "$(id -u)" -ne 0 ]; then
 fi
 
 echo "Step 2, check if architecture is supported"
-ARCHITECTURE="$(uname -m | sed s/aarch64/arm64/ | sed s/x86_64/amd64/)"
+ARCHITECTURE="$(uname -m | sed s/aarch64/arm64/ | sed s/x86_64/64bit/)"
 if [ "${ARCHITECTURE}" != "amd64" ] && [ "${ARCHITECTURE}" != "x86_64" ] && [ "${ARCHITECTURE}" != "arm64" ] && [ "${ARCHITECTURE}" != "aarch64" ]; then
     echo "(!) Architecture $ARCHITECTURE unsupported"
     exit 1
@@ -66,6 +66,8 @@ check_packages ca-certificates curl unzip jq
 MAGE_VERSION=$(curl -sL https://api.github.com/repos/magefile/mage/releases/latest \
   | jq -r '.tag_name')
 MAGE_VERSION="${MAGE_VERSION#"v"}"
+
+echo https://github.com/magefile/mage/releases/download/v${MAGE_VERSION}/mage_${MAGE_VERSION}_Linux-${ARCHITECTURE}.tar.gz
 
 curl -sSL -o ${TMP_DIR}/mage.tar.gz "https://github.com/magefile/mage/releases/download/v${MAGE_VERSION}/mage_${MAGE_VERSION}_Linux-${ARCHITECTURE}.tar.gz"
 tar -xzf "${TMP_DIR}/mage.tar.gz" -C "${TMP_DIR}" mage

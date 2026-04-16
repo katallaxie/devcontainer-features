@@ -32,7 +32,7 @@ check_packages() {
 }
 export DEBIAN_FRONTEND=noninteractive
 
-check_packages ca-certificates curl unzip 
+check_packages ca-certificates curl unzip jq
 
 # Optional: Import test library bundled with the devcontainer CLI
 source dev-container-features-test-lib
