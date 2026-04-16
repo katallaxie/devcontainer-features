@@ -41,7 +41,7 @@ check_packages() {
 export DEBIAN_FRONTEND=noninteractive
 
 # Install dependencies
-check_packages curl git tar
+check_packages curl git tar jq ca-certificates
 
 # Use a temporary locaiton for k9s archive
 export TMP_DIR="/tmp/tmp-k9s"
