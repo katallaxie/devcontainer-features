@@ -26,8 +26,8 @@ if [ "$(id -u)" -ne 0 ]; then
 fi
 
 echo "Step 2, check if architecture is supported"
-ARCHITECTURE="$(uname -m | sed s/aarch64/arm64/ | sed s/x86_64/64bit/)"
-if [ "${ARCHITECTURE}" != "amd64" ] && [ "${ARCHITECTURE}" != "x86_64" ] && [ "${ARCHITECTURE}" != "arm64" ] && [ "${ARCHITECTURE}" != "aarch64" ]; then
+ARCHITECTURE="$(uname -m | sed s/aarch64/arm64/ | sed s/x86_64/amd64/ | sed s/amd64/64bit/))"
+if [ "${ARCHITECTURE}" != "64bit" ] && [ "${ARCHITECTURE}" != "arm64" ] && [ "${ARCHITECTURE}" != "arm" ]; then
     echo "(!) Architecture $ARCHITECTURE unsupported"
     exit 1
 fi
