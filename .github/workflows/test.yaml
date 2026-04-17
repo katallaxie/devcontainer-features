@@ -44,7 +44,6 @@ jobs:
           - k9s
           - mage
           - tinygo
-          - zed
           
     steps:
       - uses: actions/checkout@v6
